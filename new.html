@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <title>Number Guessing Game</title>
+  </head>
+  <body>
+    <div id="container">
+        <p>
+          <b>  GUESS A NUMBER BETWEEN 1-100</b></p>
+        <P id="output">ENTER A NUMBER BELOW</p>
+    <input id="user-input" type="number" min="1" max="100" />
+    <button onclick="startGame()" id="btn">Start</button>
+    <p id="result"></p>
+
+    <script>
+      let answer;
+      let numGuesses = 0;
+
+      function startGame() {
+        let userInput = document.getElementById("user-input").value;
+        if (userInput < 1 || userInput > 100) {
+          document.getElementById("result").innerHTML =
+            "Invalid number. Please enter a number between 1 and 100.";
+          return;
+        }
+
+        answer = userInput;
+        numGuesses = 0;
+        computerGuess();
+      }
+
+      function computerGuess() {
+        numGuesses++;
+        let guess = Math.floor(Math.random() * 100) + 1;
+        if (guess == answer) {
+          document.getElementById("result").innerHTML =
+            "The computer guessed " +
+            guess +
+            " and won in " +
+            numGuesses +
+            " guesses.";
+        } else if (numGuesses < 5) {
+          document.getElementById("result").innerHTML =
+            "The computer guessed " + guess + ". Guess again.";
+          setTimeout(computerGuess, 1000);
+        } else {
+          document.getElementById("result").innerHTML =
+            "The computer could not guess the number. YOU WIN! ";
+        }
+      }
+    </script>
+  </body>
+</html>
